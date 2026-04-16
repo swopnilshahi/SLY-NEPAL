@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/font/Roboto.woff2');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/font/Poppins.ttf');
+}
+
+* {
+  @apply font-poppins m-0 p-0 box-border scroll-smooth;
+}
