@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # "admin_charts",
+    "jazzmin",  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     
     'rest_framework',
     "corsheaders",
+
     'core',
 
 ]
@@ -120,9 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -145,3 +150,32 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:9000",
     "http://192.168.16.111:5173"
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "SLY NEPAL Admin",
+    "site_header": "SLY NEPAL Center Admin",
+    "site_brand": "SLY NEPAL Dashboard",
+    "welcome_sign": "Welcome to SLY NEPAL Center Admin",
+    "copyright": "SLY NEPAL Center",
+
+    "site_logo": "logo.png",  
+
+    "topmenu_links": [
+        {"name": "Dashboard", "url": "admin:index"},
+    ],
+
+    "icons": {
+        "core.Service": "fas fa-cogs",
+        "core.HealingMethod": "fas fa-spa",
+        "core.Condition": "fas fa-heartbeat",
+        "core.SuccessStory": "fas fa-star",
+        "core.Schedule": "fas fa-clock",
+        "core.Appointment": "fas fa-calendar-check",
+        "core.ContactMessage": "fas fa-envelope",
+    },
+
+    "show_sidebar": True,
+    "navigation_expanded": True,
+
+    "custom_css": "admin/custom.css",
+}

@@ -1,0 +1,19 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+#header {
+    background: linear-gradient(90deg, #2c7a7b, #38b2ac);
+}
+
+.brand-link {
+    font-weight: bold;
+}
+
+.content-wrapper {
+    background-color: #f7fafc;
+}
+
+.table th {
+    color: #2c7a7b;
+}
