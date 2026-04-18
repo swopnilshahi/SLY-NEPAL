@@ -83,7 +83,6 @@ class Appointment(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=PENDING)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
 class ContactMessage(models.Model):
     full_name = models.CharField(max_length=255)
