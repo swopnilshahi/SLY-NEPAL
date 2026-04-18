@@ -7,3 +7,4 @@ const API = axios.create({
 export const fetchServices = () => API.get("services/");
 export const fetchConditions = () => API.get("conditions/");
 export const getMethods = () => API.get("methods/");
+export const getSuccessStories = () => API.get("successstories/");

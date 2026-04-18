@@ -4,6 +4,7 @@ import MainLayout from "./layout/MainLayout"
 import Home from './pages/Home'
 import Methods from "./pages/Methods"
 import Condition from "./pages/Condition"
+import SuccessStories from "./pages/SuccessStories"
 
 
 function App() {
@@ -21,8 +22,8 @@ function App() {
            
            <Route path="/conditions" element={<Condition />} />
 
-          {/*   <Route path="/team" element={<Team />} />
-
+         <Route path="/success-stories" element={<SuccessStories />} />
+ {/*   
           <Route path="/services" element={<Services />} />
 
           <Route path="/videos" element={<Videos />} /> */}

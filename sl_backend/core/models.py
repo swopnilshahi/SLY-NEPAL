@@ -37,3 +37,15 @@ class Condition(models.Model):
     
     def __str__(self):
         return self.title
+class SuccessStory(models.Model):
+    name = models.CharField(max_length=150)
+    title = models.CharField(max_length=200, blank=True)
+    story = models.TextField()
+    image = models.ImageField(upload_to="success_stories/", blank=True, null=True)
+
+    conditions = models.ManyToManyField(Condition, blank=True)
+
+    rating = models.IntegerField(default=5)
+
+    def __str__(self):
+        return self.name

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Service, Condition, HealingMethod
-from .serializers import ServiceSerializer, ConditionSerializer,HealingMethodSerializer
+from .models import Service, Condition, HealingMethod,SuccessStory
+from .serializers import ServiceSerializer, ConditionSerializer,HealingMethodSerializer,SuccessStorySerializer
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
@@ -14,3 +14,6 @@ class HealingMethodViewSet(viewsets.ModelViewSet):
 
     queryset = HealingMethod.objects.all()
     serializer_class = HealingMethodSerializer
+class SuccessStoryViewSet(viewsets.ModelViewSet):
+    queryset = SuccessStory.objects.all()
+    serializer_class = SuccessStorySerializer

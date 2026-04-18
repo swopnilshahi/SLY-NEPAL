@@ -34,6 +34,9 @@ export default function Header() {
               Home
             </NavLink>
 
+            <NavLink to="/success-stories" className={navLinkClass}>
+              SuccessStories
+            </NavLink>
             <NavLink to="/methods" className={navLinkClass}>
               Services
             </NavLink>
