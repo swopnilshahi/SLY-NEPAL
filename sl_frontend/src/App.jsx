@@ -5,6 +5,10 @@ import Home from './pages/Home'
 import Methods from "./pages/Methods"
 import Condition from "./pages/Condition"
 import SuccessStories from "./pages/SuccessStories"
+import BookingPage from "./pages/BookingPage"
+import ContactPage from "./pages/ContactPage"
+
+
 
 
 function App() {
@@ -23,9 +27,10 @@ function App() {
            <Route path="/conditions" element={<Condition />} />
 
          <Route path="/success-stories" element={<SuccessStories />} />
- {/*   
-          <Route path="/services" element={<Services />} />
-
+ 
+          <Route path="/book" element={<BookingPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+{/*   
           <Route path="/videos" element={<Videos />} /> */}
 
         </Route>

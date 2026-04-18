@@ -1,42 +1,51 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const baseStyle = "text-sm font-medium transition-colors hover:text-primary";
-  const activeStyle = "text-primary";
+  const baseStyle =
+    "text-sm font-medium transition-colors hover:text-primary";
 
   const navLinkClass = ({ isActive }) =>
     `${baseStyle} ${
-      isActive ? activeStyle : "text-slate-900 dark:text-slate-100"
+      isActive ? "text-primary" : "text-slate-900 dark:text-slate-100"
     }`;
+
+  const handleNavigate = (path) => {
+    setMenuOpen(false);
+    navigate(path);
+  };
 
   return (
     <header className="border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark sticky top-0 z-50">
-      
-      {/* Top Navbar */}
+
+      {/* TOP BAR */}
       <div className="flex items-center justify-between px-4 md:px-10 py-4">
-        
-        {/* Logo */}
-        <div className="flex items-center gap-3 text-slate-900 dark:text-slate-100">
-          <img className="w-8 h-8" src={logo} alt="Solo Laughter Yoga Nepal" />
-          <h2 className="text-lg font-bold whitespace-nowrap">
+
+        {/* LOGO */}
+        <div className="flex items-center gap-3">
+          <img className="w-8 h-8" src={logo} alt="logo" />
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white whitespace-nowrap">
             Solo Laughter Yoga Nepal
           </h2>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* DESKTOP NAV */}
         <div className="hidden md:flex items-center gap-8">
+
           <nav className="flex items-center gap-9">
+
             <NavLink to="/" className={navLinkClass}>
               Home
             </NavLink>
 
             <NavLink to="/success-stories" className={navLinkClass}>
-              SuccessStories
+              Success Stories
             </NavLink>
+
             <NavLink to="/methods" className={navLinkClass}>
               Services
             </NavLink>
@@ -45,24 +54,27 @@ export default function Header() {
               Conditions
             </NavLink>
 
-
-            <NavLink to="/about" className={navLinkClass}>
-              About
-            </NavLink>
+           
 
             <NavLink to="/contact" className={navLinkClass}>
               Contact
             </NavLink>
+
           </nav>
 
-          <button className="flex items-center justify-center rounded-xl h-10 px-4 bg-primary text-slate-900 text-sm font-bold hover:opacity-90 transition-opacity">
+          {/* BOOK BUTTON */}
+          <button
+            onClick={() => navigate("/book")}
+            className="flex items-center justify-center rounded-xl h-10 px-4 bg-primary text-slate-900 text-sm font-bold hover:opacity-90 transition"
+          >
             Book Now
           </button>
+
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* MOBILE TOGGLE */}
         <button
-          className="md:hidden text-3xl text-slate-900 dark:text-slate-100"
+          className="md:hidden text-3xl text-slate-900 dark:text-white"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <span className="material-symbols-outlined">
@@ -71,7 +83,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* MOBILE MENU */}
       {menuOpen && (
         <div className="md:hidden px-4 pb-6">
           <nav className="flex flex-col gap-4">
@@ -85,11 +97,27 @@ export default function Header() {
             </NavLink>
 
             <NavLink
+              to="/success-stories"
+              className={navLinkClass}
+              onClick={() => setMenuOpen(false)}
+            >
+              Success Stories
+            </NavLink>
+
+            <NavLink
               to="/methods"
               className={navLinkClass}
               onClick={() => setMenuOpen(false)}
             >
               Services
+            </NavLink>
+
+            <NavLink
+              to="/conditions"
+              className={navLinkClass}
+              onClick={() => setMenuOpen(false)}
+            >
+              Conditions
             </NavLink>
 
             <NavLink
@@ -108,13 +136,18 @@ export default function Header() {
               Contact
             </NavLink>
 
-            <button className="mt-3 w-full rounded-xl h-10 bg-primary text-slate-900 text-sm font-bold hover:opacity-90 transition-opacity">
+            {/* BOOK BUTTON */}
+            <button
+              onClick={() => handleNavigate("/book")}
+              className="mt-3 w-full rounded-xl h-10 bg-primary text-slate-900 text-sm font-bold hover:opacity-90 transition"
+            >
               Book Now
             </button>
 
           </nav>
         </div>
       )}
+
     </header>
   );
 }
