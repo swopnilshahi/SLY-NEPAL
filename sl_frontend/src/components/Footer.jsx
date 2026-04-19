@@ -35,10 +35,16 @@ export default function Footer() {
           <h4 className="text-lg font-bold border-b border-primary w-fit pb-1">Connect With Us</h4>
           <div className="flex gap-4">
             <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
-              {/* Facebook Icon */}
+             <i class="fa-brands fa-facebook-f fa-flip" ></i>
             </a>
             <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
-              {/* Instagram Icon */}
+             <i class="fa-brands fa-youtube fa-flip" ></i>
+            </a>
+            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
+              <i class="fa-brands fa-instagram fa-flip"></i>
+            </a>
+            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
+              <i class="fa-brands fa-tiktok fa-flip"></i>
             </a>
           </div>
         </div>
