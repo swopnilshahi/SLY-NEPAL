@@ -211,8 +211,8 @@ export default function ContactPage() {
                     <span className="material-symbols-outlined">location_on</span>
                   </div>
                   <div>
-                    <p className="font-bold">Clinic Address</p>
-                    <p>Solo Laughter Yoga Nepal Center, Kathmandu, Nepal</p>
+                    <p className="font-bold">Office Address</p>
+                    <p>Sukedhara, Badri Colony, Kathmandu, Nepal</p>
                   </div>
                 </div>
 
@@ -234,17 +234,18 @@ export default function ContactPage() {
       </div>
 
       {/* MAP (UNCHANGED) */}
-      <div className="w-full px-6 lg:px-20 pb-20">
-        <div className="max-w-6xl mx-auto rounded-xl overflow-hidden shadow-2xl h-[450px] relative">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_EDToe1lFQ4w8n8jXi8HlQrSKcr__RbyXFO7Dt_Zj9V_T0axx3nfOIyXFYHgkHAvMTytIHgZBsHerhOaGnKIoxN9t2gViYD9Q_ufKZXiwQrIf1XSPBypK7wOSy81AQKPRvysHeVzIStgVszJuPuHcPLzzBVhYqajpXFE2LKEOprul8AhpnVXaTtrwALUd-P-UF6O0stm2XJQpOdyTDgnZqs59hnR-CAP6979EjgzHvvwi4S6GQD6tkELoP0GDlt_UhOTyiQJ-I6g')",
-            }}
-          />
-        </div>
+         <div className="w-full px-6 lg:px-20 pb-20">
+      <div className="max-w-6xl mx-auto rounded-xl overflow-hidden shadow-2xl relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px]">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1952.4555166988248!2d85.34647174651046!3d27.732077041186173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19a6a6a8e301%3A0xa31b073582c54c37!2sSolo%20Laughter%20Yoga%20Nepal!5e0!3m2!1sen!2snp!4v1776588133088!5m2!1sen!2snp"
+          className="w-full h-full border-0"
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Solo Laughter Yoga Nepal Location"
+        ></iframe>
       </div>
+    </div>
     </main>
   );
 }
