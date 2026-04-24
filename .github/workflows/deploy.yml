@@ -1,0 +1,39 @@
+name: Deploy Django React
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home2/laughter/projects/django-react
+
+            git pull origin main
+
+            source venv/bin/activate
+            pip install -r requirements.txt
+
+            python manage.py migrate
+            python manage.py collectstatic --noinput
+
+            cd frontend
+            npm install
+            npm run build
+
+            cp -r build/* /home2/laughter/public_html/ || cp -r dist/* /home2/laughter/public_html/
+
+            touch /home2/laughter/tmp/restart.txt
