@@ -24,12 +24,11 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.getenv(
-        "ALLOWED_HOSTS",
-        "127.0.0.1,localhost"
-    ).split(",")
-    if host.strip()
+    '127.0.0.1',
+    'localhost',
+    'api.laughteryoga.com.np',
+    'laughteryoga.com.np',
+    'www.laughteryoga.com.np'
 ]
 
 INSTALLED_APPS = [
