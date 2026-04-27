@@ -163,6 +163,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # CORS & CSRF
 # ==================================================
 CORS_ALLOWED_ORIGINS = [
+    "https://laughteryoga.com.np",
+    "https://www.laughteryoga.com.np",
     "http://localhost:5173",
     "https://example.com",
     "https://sub.example.com",
@@ -174,8 +176,13 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://laughteryoga.com.np",
     "https://www.laughteryoga.com.np",
+    "https://api.laughteryoga.com.np",
 ]
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
+CSRF_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SAMESITE = "None"
 # ==================================================
 # JAZZMIN
 # ==================================================
