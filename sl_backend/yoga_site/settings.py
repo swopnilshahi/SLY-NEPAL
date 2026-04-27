@@ -12,7 +12,6 @@ load_dotenv()
 # ==================================================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # ==================================================
 # SECURITY
 # ==================================================
@@ -31,25 +30,33 @@ ALLOWED_HOSTS = [
     'www.laughteryoga.com.np'
 ]
 
+# ==================================================
+# APPLICATIONS
+# ==================================================
 INSTALLED_APPS = [
-    # "admin_charts",
-    "jazzmin",  
+    "jazzmin",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
     "corsheaders",
 
     'core',
-
 ]
 
+# ==================================================
+# MIDDLEWARE
+# ==================================================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # 👇 IMPORTANT for production static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -61,10 +68,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'yoga_site.urls'
 
+# ==================================================
+# TEMPLATES
+# ==================================================
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],  # optional but useful
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,12 +88,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'yoga_site.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-
-if DEBUG == True:
+# ==================================================
+# DATABASE
+# ==================================================
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -102,61 +110,58 @@ else:
         }
     }
 
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# ==================================================
+# PASSWORD VALIDATION
+# ==================================================
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
+# ==================================================
+# INTERNATIONALIZATION
+# ==================================================
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+# ==================================================
+# STATIC & MEDIA FILES  ✅ FIXED SECTION
+# ==================================================
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Where Django looks for static files (development)
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# 🔥 REQUIRED for collectstatic (THIS FIXES YOUR ERROR)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# WhiteNoise (production static serving)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-# settings.py
+# ==================================================
+# EMAIL
+# ==================================================
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "sololaughteryoganepal@gmail.com"
-EMAIL_HOST_PASSWORD = "your-app-password"  # not your real password
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")  # ✅ safer
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# ==================================================
+# CORS & CSRF
+# ==================================================
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://example.com",
@@ -164,25 +169,24 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:9000",
     "http://192.168.1.145:5173",
-    
 ]
+
 CSRF_TRUSTED_ORIGINS = [
     "https://laughteryoga.com.np",
     "https://www.laughteryoga.com.np",
 ]
+
+# ==================================================
+# JAZZMIN
+# ==================================================
 JAZZMIN_SETTINGS = {
     "site_title": "SLY NEPAL Admin",
     "site_header": "SLY NEPAL Center Admin",
     "site_brand": "SLY NEPAL Dashboard",
     "welcome_sign": "Welcome to SLY NEPAL Center Admin",
     "copyright": "SLY NEPAL Center",
-
-    "site_logo": "logo.png",  
-
-    "topmenu_links": [
-        {"name": "Dashboard", "url": "admin:index"},
-    ],
-
+    "site_logo": "logo.png",
+    "topmenu_links": [{"name": "Dashboard", "url": "admin:index"}],
     "icons": {
         "core.Service": "fas fa-cogs",
         "core.HealingMethod": "fas fa-spa",
@@ -192,10 +196,14 @@ JAZZMIN_SETTINGS = {
         "core.Appointment": "fas fa-calendar-check",
         "core.ContactMessage": "fas fa-envelope",
     },
-
     "show_sidebar": True,
     "navigation_expanded": True,
-
     "custom_css": "admin/custom.css",
 }
+
+# ==================================================
+# SECURITY (FOR DEPLOYMENT BEHIND PROXY)
+# ==================================================
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
