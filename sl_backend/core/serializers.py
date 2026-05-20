@@ -1,8 +1,29 @@
 from rest_framework import serializers
-from .models import Service, Condition,HealingMethod,SuccessStory,Appointment,Schedule,ContactMessage
+from .models import Hero,Service, Condition,HealingMethod,SuccessStory,Appointment,Schedule,ContactMessage
 
 import re
 
+class HeroSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Hero
+        fields = [
+            "id",
+            "title",
+            "subtitle",
+            "description",
+            "image",
+            "image_url",
+        ]
+
+    def get_image(self, obj):
+        request = self.context.get("request")
+
+        if obj.image:
+            return request.build_absolute_uri(obj.image.url)
+
+        return None
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import (
+    Hero,   
     Service,
     HealingMethod,
     Condition,
@@ -11,6 +12,16 @@ from .models import (
 )
 
 
+# -----------------------------
+# Hero
+# -----------------------------
+@admin.register(Hero)    
+class HeroAdmin(admin.ModelAdmin):
+    list_display = ("title", "short_description")
+    search_fields = ("title",)
+
+    def short_description(self, obj):
+        return obj.description[:50] 
 # -----------------------------
 # Service
 # -----------------------------

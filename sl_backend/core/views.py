@@ -1,25 +1,20 @@
 from rest_framework import viewsets
-from .models import Service, Condition, HealingMethod,SuccessStory,Appointment,Schedule
-from .serializers import ServiceSerializer, ConditionSerializer,HealingMethodSerializer,SuccessStorySerializer,AppointmentSerializer,ScheduleSerializer,ContactMessageSerializer
+from .models import Hero,Service, Condition, HealingMethod,SuccessStory,Appointment,Schedule
+from .serializers import HeroSerializer,ServiceSerializer, ConditionSerializer,HealingMethodSerializer,SuccessStorySerializer,AppointmentSerializer,ScheduleSerializer,ContactMessageSerializer
 
 from rest_framework import status
-from rest_framework.response import Response
-
 from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework import viewsets
-
 from datetime import datetime, time
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
-
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
 import requests
 
+
+class HeroViewSet(viewsets.ModelViewSet):
+    queryset = Hero.objects.all()
+    serializer_class = HeroSerializer
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer

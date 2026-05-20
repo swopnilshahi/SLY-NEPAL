@@ -7,6 +7,7 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
+export const fetchHero = () => API.get("hero/");
 export const fetchServices = () => API.get("services/");
 export const fetchConditions = () => API.get("conditions/");
 export const getMethods = () => API.get("methods/");

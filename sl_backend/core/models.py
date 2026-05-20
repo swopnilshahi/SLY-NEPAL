@@ -1,4 +1,32 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+
+class Hero(models.Model):
+    title = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255)
+    description = models.TextField()
+
+    # Upload image
+    image = models.ImageField(
+        upload_to="hero/",
+        blank=True,
+        null=True
+    )
+
+    # External image URL
+    image_url = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    def clean(self):
+        if not self.image and not self.image_url:
+            raise ValidationError(
+                "Provide either an uploaded image or an image URL."
+            )
+
+    def __str__(self):
+        return self.title
 
 class Service(models.Model):
     name = models.CharField(max_length=100)
