@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchConditions, getMethods, createAppointment } from "../api";
+import { fetchConditions, getMethods, createAppointment, getSlots } from "../api";
 
 export default function BookingPage() {
   const [conditions, setConditions] = useState([]);
@@ -73,9 +73,7 @@ export default function BookingPage() {
     if (!date) return;
 
     try {
-      const res = await fetch(
-        `http://localhost:8000/api/schedules/available/?date=${date}`
-      );
+      const res =await getSlots(date)
       const data = await res.json();
       setSlots(data);
     } catch (err) {
@@ -145,11 +143,11 @@ export default function BookingPage() {
           </span>
         </div>
 
-        <h1 className="text-4xl font-black text-slate-900 dark:text-white">
+        <h1 className="text-4xl font-black text-slate-900 ">
           Book Your Natural Healing Session
         </h1>
 
-        <p className="text-slate-600 dark:text-slate-400 text-lg">
+        <p className="text-slate-600 text-lg">
           Drug-free and surgery-free wellness for a healthier you.
         </p>
       </div>
@@ -160,7 +158,7 @@ export default function BookingPage() {
         <div className="lg:col-span-2 space-y-8">
 
           {/* STEP 1 */}
-          <section className="bg-white dark:bg-slate-900 p-8 rounded-xl border">
+          <section className="bg-white  p-8 rounded-xl border">
             <h2 className="text-xl font-bold mb-6">
               Select Condition
             </h2>
@@ -183,7 +181,7 @@ export default function BookingPage() {
           </section>
 
           {/* STEP 2 */}
-          <section className="bg-white dark:bg-slate-900 p-8 rounded-xl border">
+          <section className="bg-white  p-8 rounded-xl border">
             <h2 className="text-xl font-bold mb-6">
               Select Method
             </h2>
@@ -209,7 +207,7 @@ export default function BookingPage() {
           </section>
 
           {/* STEP 3 */}
-          <section className="bg-white dark:bg-slate-900 p-8 rounded-xl border">
+          <section className="bg-white  p-8 rounded-xl border">
             <h2 className="text-xl font-bold mb-6">
               Pick Date & Time
             </h2>
@@ -217,7 +215,7 @@ export default function BookingPage() {
             <div className="flex gap-8">
 
               {/* CALENDAR */}
-              <div className="flex-1">
+              <div className="flex-2">
                 <h3 className="font-bold mb-4">
                   {monthName}
                 </h3>
@@ -302,7 +300,7 @@ export default function BookingPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
 
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-xl w-full max-w-md space-y-4">
+          <div className="bg-white  p-6 rounded-xl w-full max-w-md space-y-4">
 
             <h2 className="text-xl font-bold">
               Enter Your Details

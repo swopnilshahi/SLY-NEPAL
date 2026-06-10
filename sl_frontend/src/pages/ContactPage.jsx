@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
+import { createContact } from "../api";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -44,11 +45,11 @@ export default function ContactPage() {
     setSuccess("");
 
     try {
-      await axios.post("http://127.0.0.1:8000/api/contact/", {
+      const data = {
         ...formData,
         captcha: captchaToken,
-      });
-
+      }
+      await createContact(data)
       setSuccess("Message sent successfully!");
 
       setFormData({
@@ -78,10 +79,10 @@ export default function ContactPage() {
             <span className="text-primary font-bold tracking-widest uppercase text-xs">
               Get in Touch
             </span>
-            <h1 className="text-slate-900 dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-tight">
+            <h1 className="text-slate-900  text-4xl lg:text-5xl font-black leading-tight tracking-tight">
               Contact Us
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl">
+            <p className="text-slate-600  text-lg max-w-2xl">
               Start your journey towards a drug-free and surgery-free holistic healing experience. We're here to support your wellness path.
             </p>
           </div>
@@ -89,21 +90,21 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
 
             {/* FORM */}
-            <div className="bg-white dark:bg-background-dark p-6 lg:p-10 rounded-xl border border-primary/5 shadow-xl shadow-primary/5">
+            <div className="bg-white  p-6 lg:p-10 rounded-xl border border-primary/5 shadow-xl shadow-primary/5">
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                   {/* FULL NAME */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold">
+                    <label className="text-slate-700  text-sm font-semibold">
                       Full Name
                     </label>
                     <input
                       name="full_name"
                       value={formData.full_name}
                       onChange={handleChange}
-                      className="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-3 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full rounded-lg border-slate-200  bg-slate-50  p-3 text-slate-900 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                       placeholder="Enter your name"
                       type="text"
                     />
@@ -114,14 +115,14 @@ export default function ContactPage() {
 
                   {/* PHONE */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold">
+                    <label className="text-slate-700  text-sm font-semibold">
                       Phone Number
                     </label>
                     <input
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-3 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full rounded-lg border-slate-200  bg-slate-50  p-3 text-slate-900 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                       placeholder="+977-98XXXXXXXX"
                       type="tel"
                     />
@@ -131,14 +132,14 @@ export default function ContactPage() {
 
                 {/* EMAIL */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold">
+                  <label className="text-slate-700  text-sm font-semibold">
                     Email Address
                   </label>
                   <input
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-3 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                    className="w-full rounded-lg border-slate-200  bg-slate-50  p-3 text-slate-900  focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     placeholder="yourname@example.com"
                     type="email"
                   />
@@ -149,14 +150,14 @@ export default function ContactPage() {
 
                 {/* MESSAGE */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold">
+                  <label className="text-slate-700  text-sm font-semibold">
                     Message
                   </label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-3 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                    className="w-full rounded-lg border-slate-200  bg-slate-50  p-3 text-slate-900 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     placeholder="How can we help you on your wellness journey?"
                     rows="5"
                   />
@@ -191,7 +192,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-10">
 
               <div className="flex flex-col gap-6">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h3 className="text-2xl font-bold text-slate-900 ">
                   Our Office
                 </h3>
 

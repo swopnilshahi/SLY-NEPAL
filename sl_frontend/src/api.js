@@ -14,3 +14,11 @@ export const getMethods = () => API.get("methods/");
 export const getSuccessStories = () => API.get("successstories/");
 export const createAppointment = (data) =>
   API.post("appointments/", data);
+export const getSlots = (data) =>
+  API.post("schedules/available/", data);
+export const createContact = (data) =>
+  API.post("contact/", data);
+
+export const getAboutData =  () => {
+  API.get("about/");
+};
