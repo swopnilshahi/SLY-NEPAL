@@ -69,32 +69,32 @@ export default function Hero() {
       </section>
 
       {/* ✅ POPUP MODAL */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 w-[90%] md:w-[600px] rounded-2xl p-6 shadow-2xl relative">
+{showModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div className="relative w-[90%] md:w-[600px] max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900">
 
-            {/* Close Button */}
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-3 right-3 text-xl font-bold text-slate-500 hover:text-red-500"
-            >
-              ✕
-            </button>
+      {/* Close Button */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-3 right-3 text-xl font-bold text-slate-500 hover:text-red-500"
+      >
+        ✕
+      </button>
 
-            <h2 className="text-2xl font-bold mb-4 text-primary">
-              {hero.title}
-            </h2>
+      <h2 className="mb-4 text-2xl font-bold text-primary">
+        {hero.title}
+      </h2>
 
-            <h3 className="text-lg font-semibold mb-2">
-              {hero.subtitle}
-            </h3>
+      <h3 className="mb-2 text-lg font-semibold">
+        {hero.subtitle}
+      </h3>
 
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              {hero.description}
-            </p>
-          </div>
-        </div>
-      )}
+      <p className="leading-relaxed text-slate-600 dark:text-slate-300">
+        {hero.description}
+      </p>
+    </div>
+  </div>
+)}
     </>
   );
 }
