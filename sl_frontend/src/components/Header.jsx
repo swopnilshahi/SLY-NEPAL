@@ -35,7 +35,7 @@ export default function Header() {
 
   const navLinkClass = ({ isActive }) =>
     `${baseStyle} ${
-      isActive ? "text-primary" : "text-slate-900 dark:text-slate-100"
+      isActive ? "text-primary" : "text-slate-900 "
     }`;
 
   const underline = ({ isActive }) =>
@@ -58,9 +58,9 @@ export default function Header() {
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "py-2 shadow-md bg-white/80 dark:bg-slate-900/80 backdrop-blur"
-            : "py-3 md:py-4 bg-background-light dark:bg-background-dark"
-        } border-b border-slate-200 dark:border-slate-800`}
+            ? "py-2 shadow-md bg-white/80 backdrop-blur"
+            : "py-3 md:py-4 bg-background-light"
+        } border-b border-slate-200 `}
       >
         <div
           ref={menuRef}
@@ -69,7 +69,7 @@ export default function Header() {
           {/* LOGO */}
           <div className="flex items-center gap-2 sm:gap-3 max-w-[70%]">
             <img className="w-7 h-7 sm:w-8 sm:h-8" src={logo} alt="logo" />
-            <h2 className="text-sm sm:text-base md:text-lg font-bold text-slate-900 dark:text-white truncate">
+            <h2 className="text-sm sm:text-base md:text-lg font-bold text-slate-900  truncate">
               Solo Laughter Yoga Nepal
             </h2>
           </div>
@@ -83,6 +83,7 @@ export default function Header() {
                 { to: "/methods", label: "Services" },
                 { to: "/conditions", label: "Conditions" },
                 { to: "/contact", label: "Contact" },
+                { to: "/about", label: "About" },
               ].map((link) => (
                 <NavLink key={link.to} to={link.to} className="group">
                   {(props) => (
@@ -105,7 +106,7 @@ export default function Header() {
 
           {/* MOBILE TOGGLE */}
           <button
-            className="md:hidden text-2xl sm:text-3xl text-slate-900 dark:text-white"
+            className="md:hidden text-2xl sm:text-3xl text-slate-900"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <span className="material-symbols-outlined">
