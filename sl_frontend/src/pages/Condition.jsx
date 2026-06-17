@@ -133,7 +133,7 @@ const Condition = () => {
                     {item.description}
                   </p>
 
-                  <div className="mt-auto flex justify-between items-center mt-6">
+                  <div className="mt-auto flex justify-between items-center ">
 
                     <span className="text-xs text-primary">
                       {item.category}
