@@ -84,6 +84,7 @@ export default function Header() {
                 { to: "/conditions", label: "Conditions" },
                 { to: "/contact", label: "Contact" },
                 { to: "/about", label: "About" },
+                { to: "/videos", label: "Video" },
               ].map((link) => (
                 <NavLink key={link.to} to={link.to} className="group">
                   {(props) => (
@@ -130,6 +131,7 @@ export default function Header() {
                 { to: "/conditions", label: "Conditions" },
                 { to: "/about", label: "About" },
                 { to: "/contact", label: "Contact" },
+                 { to: "/videos", label: "Video" },
               ].map((link) => (
                 <NavLink
                   key={link.to}
@@ -142,11 +144,12 @@ export default function Header() {
               ))}
 
               <button
-                onClick={() => handleNavigate("/book")}
-                className="mt-3 w-full rounded-xl h-10 bg-primary text-slate-900 text-sm font-bold hover:opacity-90 transition"
-              >
-                Book Now
-              </button>
+              onClick={() => navigate("/book")}
+              className="rounded-xl h-9 lg:h-10 px-3 lg:px-4 bg-primary text-slate-900 text-xs lg:text-sm font-bold hover:opacity-90 transition"
+            >
+              Book Now
+            </button>
+          
             </nav>
           </div>
         </div>

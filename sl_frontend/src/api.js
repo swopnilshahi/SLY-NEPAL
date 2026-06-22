@@ -4,7 +4,7 @@ import axios from "axios";
 //   baseURL: "http://localhost:8000/api/",
 // });
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: "https://api.laughteryoga.com.np/api/",
 });
 
 export const fetchHero = () => API.get("hero/");

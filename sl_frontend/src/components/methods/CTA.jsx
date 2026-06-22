@@ -1,6 +1,7 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function CTA() {
+  const navigate = useNavigate();
   return (
     <section className="mx-6 mb-24 lg:mx-20">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-background-dark p-12 text-center text-white relative">
@@ -9,10 +10,10 @@ export default function CTA() {
           Join our community in Kathmandu or attend our global online workshops. Let's rediscover your natural rhythm together.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <button className="rounded-xl bg-primary px-8 py-4 font-bold text-background-dark shadow-xl hover:scale-105 transition-transform">
+          <button onClick={() => navigate("/book")}  className="rounded-xl bg-primary px-8 py-4 font-bold text-background-dark shadow-xl hover:scale-105 transition-transform">
             Join a Workshop
           </button>
-          <button className="rounded-xl border border-white/20 bg-white/10 px-8 py-4 font-bold text-white hover:bg-white/20 transition-colors">
+          <button onClick={() => navigate("/contact")} className="rounded-xl border border-white/20 bg-white/10 px-8 py-4 font-bold text-white hover:bg-white/20 transition-colors">
             Contact Us
           </button>
         </div>

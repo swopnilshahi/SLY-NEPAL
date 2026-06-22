@@ -207,71 +207,61 @@ export default function BookingPage() {
           </section>
 
           {/* STEP 3 */}
-          <section className="bg-white  p-8 rounded-xl border">
-            <h2 className="text-xl font-bold mb-6">
-              Pick Date & Time
-            </h2>
+             <section className="bg-white p-4 sm:p-8 rounded-xl border">
+                <h2 className="text-xl font-bold mb-6">Pick Date & Time</h2>
 
-            <div className="flex gap-8">
+                <div className="flex flex-col  gap-8 lg:flex-row ">
 
-              {/* CALENDAR */}
-              <div className="flex-2">
-                <h3 className="font-bold mb-4">
-                  {monthName}
-                </h3>
+                  {/* CALENDAR */}
+                  <div className="w-full sm:flex-[2] min-w-0">
+                    <h3 className="font-bold mb-4">{monthName}</h3>
 
-                <div className="grid grid-cols-7 gap-2 text-center">
-                  {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(
-                    (day) => {
-                      const dateStr = formatDate(day);
+                    <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center">
+                      {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((day) => {
+                        const dateStr = formatDate(day);
 
-                      return (
-                        <div
-                          key={day}
-                          onClick={() => setSelectedDate(dateStr)}
-                          className={`p-2 rounded cursor-pointer ${
-                            selectedDate === dateStr
-                              ? "bg-primary text-black"
-                              : "hover:bg-primary/20"
+                        return (
+                          <div
+                            key={day}
+                            onClick={() => setSelectedDate(dateStr)}
+                            className={`aspect-square flex items-center justify-center rounded cursor-pointer text-sm sm:text-base ${
+                              selectedDate === dateStr
+                                ? "bg-primary text-black"
+                                : "hover:bg-primary/20 active:bg-primary/30"
+                            }`}
+                          >
+                            {day}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* SLOTS */}
+                  <div className="w-full sm:w-48">
+                    <h3 className="font-bold mb-3">Available Times</h3>
+
+                    {slots.length === 0 ? (
+                      <p className="text-sm text-slate-400">No slots</p>
+                    ) : (
+                      slots.map((s, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedTime(s.time)}
+                          className={`w-full mb-2 p-2 border rounded ${
+                            selectedTime === s.time
+                              ? "bg-primary/20 border-primary"
+                              : "border-slate-200"
                           }`}
                         >
-                          {day}
-                        </div>
-                      );
-                    }
-                  )}
+                          {s.time}
+                        </button>
+                      ))
+                    )}
+                  </div>
+
                 </div>
-              </div>
-
-              {/* SLOTS */}
-              <div className="w-48">
-                <h3 className="font-bold mb-3">
-                  Available Times
-                </h3>
-
-                {slots.length === 0 ? (
-                  <p className="text-sm text-slate-400">
-                    No slots
-                  </p>
-                ) : (
-                  slots.map((s, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedTime(s.time)}
-                      className={`w-full mb-2 p-2 border rounded ${
-                        selectedTime === s.time
-                          ? "bg-primary/20 border-primary"
-                          : "border-slate-200"
-                      }`}
-                    >
-                      {s.time}
-                    </button>
-                  ))
-                )}
-              </div>
-            </div>
-          </section>
-
+              </section>
           {/* CONFIRM BUTTON */}
           <button
             onClick={() => setShowModal(true)}

@@ -168,7 +168,7 @@ export default function ContactPage() {
 
                 {/* CAPTCHA */}
                 <ReCAPTCHA
-                  sitekey="6LcCubosAAAAANBej7vwrBVXhQ6riSQd48b4aoE5"
+                  sitekey="6LeHFBMtAAAAAEhgp9sX4kJ3vnUjt01ARo9jNgxS"
                   onChange={(token) => setCaptchaToken(token)}
                 />
                 {errors.captcha && (

@@ -34,13 +34,13 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <h4 className="text-lg font-bold border-b border-primary w-fit pb-1">Connect With Us</h4>
           <div className="flex gap-4">
-            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
+            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="https://www.facebook.com/sololaughter" target="_blank" rel="noopener noreferrer">
              <i class="fa-brands fa-facebook-f fa-flip" ></i>
             </a>
-            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
+            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="https://www.youtube.com/@SololaughteryogaNepal/featured" target="_blank" rel="noopener noreferrer">
              <i class="fa-brands fa-youtube fa-flip" ></i>
             </a>
-            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
+            <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="https://www.instagram.com/sololaughteryoga/" target="_blank" rel="noopener noreferrer">
               <i class="fa-brands fa-instagram fa-flip"></i>
             </a>
             <a className="size-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all" href="#">
