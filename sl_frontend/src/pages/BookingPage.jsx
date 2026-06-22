@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchConditions, getMethods, createAppointment } from "../api";
+import { fetchConditions, getMethods, createAppointment, getSlots } from "../api";
 
 export default function BookingPage() {
   const [conditions, setConditions] = useState([]);
@@ -73,9 +73,7 @@ export default function BookingPage() {
     if (!date) return;
 
     try {
-      const res = await fetch(
-        `http://localhost:8000/api/schedules/available/?date=${date}`
-      );
+      const res =await getSlots(date)
       const data = await res.json();
       setSlots(data);
     } catch (err) {
@@ -145,11 +143,11 @@ export default function BookingPage() {
           </span>
         </div>
 
-        <h1 className="text-4xl font-black text-slate-900 dark:text-white">
+        <h1 className="text-4xl font-black text-slate-900 ">
           Book Your Natural Healing Session
         </h1>
 
-        <p className="text-slate-600 dark:text-slate-400 text-lg">
+        <p className="text-slate-600 text-lg">
           Drug-free and surgery-free wellness for a healthier you.
         </p>
       </div>
@@ -160,7 +158,7 @@ export default function BookingPage() {
         <div className="lg:col-span-2 space-y-8">
 
           {/* STEP 1 */}
-          <section className="bg-white dark:bg-slate-900 p-8 rounded-xl border">
+          <section className="bg-white  p-8 rounded-xl border">
             <h2 className="text-xl font-bold mb-6">
               Select Condition
             </h2>
@@ -183,7 +181,7 @@ export default function BookingPage() {
           </section>
 
           {/* STEP 2 */}
-          <section className="bg-white dark:bg-slate-900 p-8 rounded-xl border">
+          <section className="bg-white  p-8 rounded-xl border">
             <h2 className="text-xl font-bold mb-6">
               Select Method
             </h2>
@@ -209,71 +207,61 @@ export default function BookingPage() {
           </section>
 
           {/* STEP 3 */}
-          <section className="bg-white dark:bg-slate-900 p-8 rounded-xl border">
-            <h2 className="text-xl font-bold mb-6">
-              Pick Date & Time
-            </h2>
+             <section className="bg-white p-4 sm:p-8 rounded-xl border">
+                <h2 className="text-xl font-bold mb-6">Pick Date & Time</h2>
 
-            <div className="flex gap-8">
+                <div className="flex flex-col  gap-8 lg:flex-row ">
 
-              {/* CALENDAR */}
-              <div className="flex-1">
-                <h3 className="font-bold mb-4">
-                  {monthName}
-                </h3>
+                  {/* CALENDAR */}
+                  <div className="w-full sm:flex-[2] min-w-0">
+                    <h3 className="font-bold mb-4">{monthName}</h3>
 
-                <div className="grid grid-cols-7 gap-2 text-center">
-                  {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(
-                    (day) => {
-                      const dateStr = formatDate(day);
+                    <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center">
+                      {Array.from({ length: daysInMonth }, (_, i) => i + 1).map((day) => {
+                        const dateStr = formatDate(day);
 
-                      return (
-                        <div
-                          key={day}
-                          onClick={() => setSelectedDate(dateStr)}
-                          className={`p-2 rounded cursor-pointer ${
-                            selectedDate === dateStr
-                              ? "bg-primary text-black"
-                              : "hover:bg-primary/20"
+                        return (
+                          <div
+                            key={day}
+                            onClick={() => setSelectedDate(dateStr)}
+                            className={`aspect-square flex items-center justify-center rounded cursor-pointer text-sm sm:text-base ${
+                              selectedDate === dateStr
+                                ? "bg-primary text-black"
+                                : "hover:bg-primary/20 active:bg-primary/30"
+                            }`}
+                          >
+                            {day}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* SLOTS */}
+                  <div className="w-full sm:w-48">
+                    <h3 className="font-bold mb-3">Available Times</h3>
+
+                    {slots.length === 0 ? (
+                      <p className="text-sm text-slate-400">No slots</p>
+                    ) : (
+                      slots.map((s, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedTime(s.time)}
+                          className={`w-full mb-2 p-2 border rounded ${
+                            selectedTime === s.time
+                              ? "bg-primary/20 border-primary"
+                              : "border-slate-200"
                           }`}
                         >
-                          {day}
-                        </div>
-                      );
-                    }
-                  )}
+                          {s.time}
+                        </button>
+                      ))
+                    )}
+                  </div>
+
                 </div>
-              </div>
-
-              {/* SLOTS */}
-              <div className="w-48">
-                <h3 className="font-bold mb-3">
-                  Available Times
-                </h3>
-
-                {slots.length === 0 ? (
-                  <p className="text-sm text-slate-400">
-                    No slots
-                  </p>
-                ) : (
-                  slots.map((s, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedTime(s.time)}
-                      className={`w-full mb-2 p-2 border rounded ${
-                        selectedTime === s.time
-                          ? "bg-primary/20 border-primary"
-                          : "border-slate-200"
-                      }`}
-                    >
-                      {s.time}
-                    </button>
-                  ))
-                )}
-              </div>
-            </div>
-          </section>
-
+              </section>
           {/* CONFIRM BUTTON */}
           <button
             onClick={() => setShowModal(true)}
@@ -302,7 +290,7 @@ export default function BookingPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
 
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-xl w-full max-w-md space-y-4">
+          <div className="bg-white  p-6 rounded-xl w-full max-w-md space-y-4">
 
             <h2 className="text-xl font-bold">
               Enter Your Details

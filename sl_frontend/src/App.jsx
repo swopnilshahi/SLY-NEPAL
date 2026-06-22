@@ -7,6 +7,8 @@ import Condition from "./pages/Condition"
 import SuccessStories from "./pages/SuccessStories"
 import BookingPage from "./pages/BookingPage"
 import ContactPage from "./pages/ContactPage"
+import AboutPage from "./pages/AboutPage"
+import VideoPage from "./pages/VideoPage"
 
 
 
@@ -29,9 +31,11 @@ function App() {
          <Route path="/success-stories" element={<SuccessStories />} />
  
           <Route path="/book" element={<BookingPage />} />
+          
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-{/*   
-          <Route path="/videos" element={<Videos />} /> */}
+  
+          <Route path="/videos" element={<VideoPage />} />
 
         </Route>
 
