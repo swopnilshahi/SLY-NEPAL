@@ -53,7 +53,7 @@ export default function Hero() {
             </div>
 
             <div className="flex gap-4">
-              <button className="min-w-[160px] h-12 px-6 bg-primary text-slate-900 rounded-xl font-bold hover:scale-105 transition-transform">
+              <button className="min-w-[160px] h-12 px-6 bg-primary text-slate-900 rounded-xl font-bold hover:scale-105 transition-transform"> 
                 Start Your Journey
               </button>
 
