@@ -25,8 +25,21 @@ export default function Hero() {
     );
   }
 
-  const imageSrc = hero.image || hero.image_url;
+  let imageSrc = null;
 
+  if (hero.image === null || hero.image === undefined) {
+    const url = hero.image_url;
+
+    const match = url.match(/\/d\/(.*?)\//);
+    const fileId = match ? match[1] : null;
+
+    imageSrc = fileId
+      ? `https://drive.google.com/thumbnail?id=${fileId}`
+      : null;
+
+  } else {
+    imageSrc = hero.image;
+  }
   return (
     <>
       <section className="px-4 md:px-10 lg:px-40 py-10">
@@ -41,7 +54,7 @@ export default function Hero() {
           {/* Hero Content */}
           <div className="flex flex-col gap-6 lg:w-1/2 lg:pl-10">
             <div className="flex flex-col gap-4">
-              <h1 className="text-3xl md:text-5xl font-black leading-tight">
+              <h1 className="text-3xl md:text-5xl font-black leading-tight  text-black">
                 {hero.title} |{" "}
                 <span className="text-primary">{hero.subtitle}</span>
               </h1>
@@ -53,7 +66,7 @@ export default function Hero() {
             </div>
 
             <div className="flex gap-4">
-              <button className="min-w-[160px] h-12 px-6 bg-primary text-slate-900 rounded-xl font-bold hover:scale-105 transition-transform">
+              <button className="min-w-[160px] h-12 px-6 bg-primary text-slate-900 rounded-xl font-bold hover:scale-105 transition-transform"> 
                 Start Your Journey
               </button>
 
@@ -69,32 +82,32 @@ export default function Hero() {
       </section>
 
       {/* ✅ POPUP MODAL */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 w-[90%] md:w-[600px] rounded-2xl p-6 shadow-2xl relative">
+{showModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div className="relative w-[90%] md:w-[600px] max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900">
 
-            {/* Close Button */}
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-3 right-3 text-xl font-bold text-slate-500 hover:text-red-500"
-            >
-              ✕
-            </button>
+      {/* Close Button */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-3 right-3 text-xl font-bold text-slate-500 hover:text-red-500"
+      >
+        ✕
+      </button>
 
-            <h2 className="text-2xl font-bold mb-4 text-primary">
-              {hero.title}
-            </h2>
+      <h2 className="mb-4 text-2xl font-bold text-primary">
+        {hero.title}
+      </h2>
 
-            <h3 className="text-lg font-semibold mb-2">
-              {hero.subtitle}
-            </h3>
+      <h3 className="mb-2 text-lg font-semibold">
+        {hero.subtitle}
+      </h3>
 
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              {hero.description}
-            </p>
-          </div>
-        </div>
-      )}
+      <p className="leading-relaxed text-slate-600 dark:text-slate-300">
+        {hero.description}
+      </p>
+    </div>
+  </div>
+)}
     </>
   );
 }

@@ -1,21 +1,60 @@
 import React, { useEffect, useState } from "react";
-import { fetchConditions } from "../api";
+import { fetchConditions ,getSuccessStories } from "../api";
 import ReusableModal from "../components/ReusableModal";
-
+import StoriesCard from "../components/StoriesCard";
 const Condition = () => {
 
   const [conditions, setConditions] = useState([]);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
 
+
+  const [stories , setStories] = useState([])
+  const [visibleCount, setVisibleCount] = useState(4);
+
   // MODAL STATES
   const [showModal, setShowModal] = useState(false);
   const [selectedCondition, setSelectedCondition] = useState(null);
-
+  const loaderRef = React.useRef(null);
   useEffect(() => {
     fetchConditions().then((res) => setConditions(res.data));
+    getSuccessStories().then((res) => setStories(res.data));
   }, []);
+  useEffect(() => {
+    const updateCount = () => {
+      setVisibleCount(window.innerWidth < 768 ? 1 : 4);
+    };
 
+    updateCount();
+    window.addEventListener("resize", updateCount);
+
+    return () => window.removeEventListener("resize", updateCount);
+  }, []);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((prev) => {
+            const next = prev + 3;
+            return next > stories.length ? stories.length : next;
+          });
+        }
+      },
+      { threshold: 1 }
+    );
+
+    const el = loaderRef.current;
+    if (el) observer.observe(el);
+
+    return () => {
+      if (el) observer.unobserve(el);
+      observer.disconnect(); // IMPORTANT FIX
+    };
+  }, [stories.length]);
+
+  //VISIBLE STORIES
+  const visibleStories = stories.slice(0, visibleCount);
+  
   // FILTER
   const filtered = conditions.filter((item) => {
     return (
@@ -45,28 +84,27 @@ const Condition = () => {
         <div className="flex flex-col gap-8 lg:flex-row">
 
           {/* SIDEBAR */}
-          <aside className="w-full lg:w-1/4">
+          <aside className="w-full lg:w-1/4 order-2 lg:order-1">
 
-            <div className="sticky top-24 flex flex-col gap-6 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-900/50">
+            <div className="sticky top-24 flex flex-col gap-6 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-900/50 h-[80vh] overflow-y-auto">
 
               <h3 className="text-lg font-bold">
                 Healing Stories
               </h3>
+              <StoriesCard stories={visibleStories} />
 
-              <div className="text-sm italic text-slate-600">
-                "After 10 years of migraine, I found relief."
+              <div ref={loaderRef} className="h-10 flex items-center justify-center">
+                {visibleCount < stories.length && (
+                  <p className="text-xs text-slate-400">Loading more...</p>
+                )}
               </div>
-
-              <button className="border-2 border-primary py-2 rounded-xl">
-                Read All
-              </button>
 
             </div>
 
           </aside>
 
           {/* CONTENT */}
-          <div className="flex flex-1 flex-col gap-8">
+          <div className="flex flex-1 flex-col gap-8 order-1 lg:order-2">
 
             {/* HERO */}
             <section className="rounded-3xl bg-slate-900 text-white p-8">
